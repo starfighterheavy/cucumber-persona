@@ -1,8 +1,15 @@
 # Cucumber::Persona
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cucumber/persona`. To experiment with that code, run `bin/console` for an interactive prompt.
+One of the hardest things to do in Cucumber is define the state of the world, from a data perspective, that a test should be run in. Gems like [cucumber_factory](https://github.com/makandra/cucumber_factory) try to make this easier, and they are often enough. But even simple tests can require extensive background data to be run well. Cucumber::Persona attempts to solve this by completely removing data setup from your cucumber feature scripts.
 
-TODO: Delete this and the text above, and describe your gem
+To use Cucumber::Persona, take the persona's you have already created for various user types (you've done that, right? ;), and create a Cucumber::Persona for each. Then, in your feature test setup, instantiate the Cucumber::Persona you need by adding a `Given` statement in the form:
+
+```
+Given I am "Han Solo"
+...
+```
+
+Going forward, your tests will be geared at testing functionality from the perspective of a known user Persona. This will result in slower tests, as you will end up creating more test data per test than you had before. But the amount of time you will save yourself in specifying data conditions for each test could, depending on your application, be well worth it.
 
 ## Installation
 
@@ -22,7 +29,36 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In your `features/support` directory, create a `personas.rb' file. Then define a persona, similar to how you would define a model with FactoryGirl.
+
+```
+Cucumber::Persona.define "Han Solo" do
+  # Create the user
+  user = User.create!(first_name: "Han", last_name: "Solo", email: "han@solo.com", password: "Password1")
+  # Create any additional data needed to flesh out the user's state of the world at the time of the test.
+  # Example below is for a todo list application where our user Han has 3 tasks and completed 1.
+  user.tasks.create!(title: "First task", completed: Time.now)
+  user.tasks.create!(title: "Second task")
+  user.tasks.create!(title: "Third task")
+end
+```
+
+Create a new step definition to instantiate your new persona.
+
+```
+Given /^I am "(.*)"$/ do |name|
+  Cucumber::Persona.find(name).create
+end
+```
+
+To use your Personas elsewhere, like in your `db/seed` file, add the following:
+
+```
+require 'cucumber/persona'
+require_relative '../features/support/personas'
+
+Cucumber::Persona.create_all
+```
 
 ## Development
 
