@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Easily create data models for use in testing and development.}
   spec.description   = %q{Cucumber Persona makes BDD easier by allowing you to define Personas that match real life user data.}
-  spec.homepage      = "https://github.com/starfighterheavy/cucumber-persona  "
+  spec.homepage      = "https://github.com/starfighterheavy/cucumber-persona"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
