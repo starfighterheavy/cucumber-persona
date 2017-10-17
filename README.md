@@ -31,6 +31,8 @@ Or install it yourself as:
 
 ## Usage
 
+In your `feaqtures/support/env.rb` file, add `require 'cucumber/persona'`.
+
 In your `features/support` directory, create a `personas.rb' file. Then define a persona, similar to how you would define a model with FactoryGirl.
 
 ```
@@ -61,6 +63,8 @@ require_relative '../features/support/personas'
 
 Cucumber::Persona.create_all
 ```
+
+Note: If you have many personas, you can split them up into different files, just remember to require them when used outside of cucumber.
 
 ## Development
 
