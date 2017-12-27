@@ -1,6 +1,7 @@
 # Cucumber::Persona
 
 [![Code Climate](https://codeclimate.com/github/starfighterheavy/edward/badges/gpa.svg)](https://codeclimate.com/github/starfighterheavy/edward)
+[![Dependency Status](https://gemnasium.com/starfighterheavy/cucumber-persona.svg)](https://gemnasium.com/starfighterheavy/cucumber-persona)
 
 One of the hardest things to do in Cucumber is define the state of the world, from a data perspective, that a test should be run in. Gems like [cucumber_factory](https://github.com/makandra/cucumber_factory) try to make this easier, and they are often enough. But even simple tests can require extensive background data to be run well. Cucumber::Persona attempts to solve this by completely removing data setup from your cucumber feature scripts.
 
