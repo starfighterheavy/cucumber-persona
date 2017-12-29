@@ -1,6 +1,6 @@
 # Cucumber::Persona
 
-[![Code Climate](https://codeclimate.com/github/starfighterheavy/persona/badges/gpa.svg)](https://codeclimate.com/github/starfighterheavy/cucumber-persona)
+[![Code Climate](https://codeclimate.com/github/starfighterheavy/cucumber-persona/badges/gpa.svg)](https://codeclimate.com/github/starfighterheavy/cucumber-persona)
 [![Dependency Status](https://gemnasium.com/starfighterheavy/cucumber-persona.svg)](https://gemnasium.com/starfighterheavy/cucumber-persona)
 [![Gem Version](https://badge.fury.io/rb/cucumber-persona.svg)](https://badge.fury.io/rb/cucumber-persona)
 
