@@ -4,7 +4,7 @@
 [![Dependency Status](https://gemnasium.com/starfighterheavy/cucumber-persona.svg)](https://gemnasium.com/starfighterheavy/cucumber-persona)
 [![Gem Version](https://badge.fury.io/rb/cucumber-persona.svg)](https://badge.fury.io/rb/cucumber-persona)
 
-One of the hardest things to do in Cucumber is define the state of the world, from a data perspective, that a test should be run in. Gems like [cucumber_factory](https://github.com/makandra/cucumber_factory) try to make this easier, and they are often enough. But even simple tests can require extensive background data to be run well. Cucumber::Persona attempts to solve this by completely removing data setup from your cucumber feature scripts.
+One of the hardest things to do in Cucumber is define the state of the world, from a data perspective, that a test should be run in. Gems like [cucumber_factory](https://github.com/makandra/cucumber_factory) try to make this easier, but can introduce more complexity rather than less, as even simple tests can require extensive background data to be run well. Cucumber::Persona attempts to solve this by completely removing data setup from your cucumber feature scripts and allowing total flexibility in how you create your data.
 
 To use Cucumber::Persona, take the persona's you have already created for various user types (you've done that, right? ;), and create a Cucumber::Persona for each. Then, in your feature test setup, instantiate the Cucumber::Persona you need by adding a `Given` statement in the form:
 
@@ -13,7 +13,14 @@ Given I am "Han Solo"
 ...
 ```
 
-Going forward, your tests will be geared at testing functionality from the perspective of a known user Persona. This will result in slower tests, as you will end up creating more test data per test than you had before. But the amount of time you will save yourself in specifying data conditions for each test could, depending on your application, be well worth it.
+or
+
+```
+Given "Han Solo" exists
+...
+```
+
+And wala! All the data you need is ready to go.
 
 ## Installation
 
@@ -35,7 +42,7 @@ Or install it yourself as:
 
 In your `feaqtures/support/env.rb` file, add `require 'cucumber/persona'`.
 
-In your `features/support` directory, create a `personas.rb' file. Then define a persona, similar to how you would define a model with FactoryGirl.
+To create your first Persona, create add a `personas` directory to your `features` directory (or wherever you'd like to place it) and create a `.rb` new file, typically named after a Persona, e.g. `han_solo.rb`, or a category of personas, e.g. `customers.rb`, similar to how you would define a model with FactoryGirl. That file will look something like this:
 
 ```
 Cucumber::Persona.define "Han Solo" do
@@ -49,10 +56,16 @@ Cucumber::Persona.define "Han Solo" do
 end
 ```
 
-Create a new step definition to instantiate your new persona.
+To use your persona in your tests, you can create your own persona related step definition, or use the default ones provided by including the requiring in your `env.rb` file:
 
 ```
-Given /^I am "(.*)"$/ do |name|
+require 'cucumber/persona/step_definitions/persona_steps`
+```
+
+You can create your own definition like the following:
+
+```
+Given /^my "(.*)" workflow exists$/ do |name|
   Cucumber::Persona.find(name).create
 end
 ```
@@ -61,20 +74,30 @@ To use your Personas elsewhere, like in your `db/seed` file, add the following:
 
 ```
 require 'cucumber/persona'
-require_relative '../features/support/personas'
+require_relative '../features/personas'
 
 Cucumber::Persona.create_all
 ```
 
-Note: If you have many personas, you can split them up into different files, just remember to require them when used outside of cucumber.
+## Examples
 
-## Development
+### Edward
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+This project was originally extracted from [Edward](https://github.com/starfighterheavy/edward), which outgrew what [factory_bot](https://github.com/thoughtbot/factory_bot_rails) could provide cleanly.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+See: https://github.com/starfighterheavy/edward/tree/master/features/personas
+
+### BridgeCare Finance
+
+[BridgeCare Finance](https://www.bridgecarefinance.com) uses Cucumber::Persona to create tests centered around common user personas that have their own quirks and history, rather than nameless data objects.
+
+#### Are you using Cucumber::Persona?
+
+Open a pull request against this README to add yourself to this list!
 
 ## Contributing
+
+Cucumber::Personas is an intentionally simple library, and should not often need updates or new features. But if you'd like to contribute, an area that could definitely use some help is in building out tests, preferably in Cucumber.
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/starfighterheavy/cucumber-persona. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
