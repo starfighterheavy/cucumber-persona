@@ -40,7 +40,7 @@ Or install it yourself as:
 
 ## Usage
 
-In your `feaqtures/support/env.rb` file, add `require 'cucumber/persona'`.
+In your `features/support/env.rb` file, add `require 'cucumber/persona'`.
 
 To create your first Persona, create add a `personas` directory to your `features` directory (or wherever you'd like to place it) and create a `.rb` new file, typically named after a Persona, e.g. `han_solo.rb`, or a category of personas, e.g. `customers.rb`, similar to how you would define a model with FactoryGirl. That file will look something like this:
 
