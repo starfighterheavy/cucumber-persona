@@ -3,7 +3,7 @@ require "cucumber/persona/version"
 module Cucumber
   module Persona
     def self.find(name)
-      @personas ||= []
+      @personas ||= {}
       @personas[name] || (raise "No persona found for #{name}")
     end
 
