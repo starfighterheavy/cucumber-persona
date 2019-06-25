@@ -1,46 +1,9 @@
 # Cucumber::Persona
 
 [![Code Climate](https://codeclimate.com/github/starfighterheavy/cucumber-persona/badges/gpa.svg)](https://codeclimate.com/github/starfighterheavy/cucumber-persona)
-[![Dependency Status](https://gemnasium.com/starfighterheavy/cucumber-persona.svg)](https://gemnasium.com/starfighterheavy/cucumber-persona)
 [![Gem Version](https://badge.fury.io/rb/cucumber-persona.svg)](https://badge.fury.io/rb/cucumber-persona)
 
 One of the hardest things to do in Cucumber is define the state of the world, from a data perspective, that a test should be run in. Gems like [cucumber_factory](https://github.com/makandra/cucumber_factory) try to make this easier, but can introduce more complexity rather than less, as even simple tests can require extensive background data to be run well. Cucumber::Persona attempts to solve this by completely removing data setup from your cucumber feature scripts and allowing total flexibility in how you create your data.
-
-To use Cucumber::Persona, take the persona's you have already created for various user types (you've done that, right? ;), and create a Cucumber::Persona for each. Then, in your feature test setup, instantiate the Cucumber::Persona you need by adding a `Given` statement in the form:
-
-```
-Given I am "Han Solo"
-...
-```
-
-or
-
-```
-Given "Han Solo" exists
-...
-```
-
-And wala! All the data you need is ready to go.
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'cucumber-persona'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install cucumber-persona
-
-## Usage
-
-In your `features/support/env.rb` file, add `require 'cucumber/persona'`.
 
 To create your first Persona, create add a `personas` directory to your `features` directory (or wherever you'd like to place it) and create a `.rb` new file, typically named after a Persona, e.g. `han_solo.rb`, or a category of personas, e.g. `customers.rb`, similar to how you would define a model with FactoryGirl. That file will look something like this:
 
@@ -55,6 +18,24 @@ Cucumber::Persona.define "Han Solo" do
   user.tasks.create!(title: "Third task")
 end
 ```
+
+In your `features/support/env.rb` file, add `require 'cucumber/persona'`.
+
+Then, in your feature test setup, instantiate the Cucumber::Persona you need by adding a `Given` statement in the form:
+
+```
+Given I am "Han Solo"
+...
+```
+
+or
+
+```
+Given "Han Solo" exists
+...
+```
+
+And wala! All the data you need is ready to go.
 
 To use your persona in your tests, you can create your own persona related step definition, or use the default ones provided by including the requiring in your `env.rb` file:
 
@@ -79,6 +60,22 @@ require_relative '../features/personas'
 Cucumber::Persona.create_all
 ```
 
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'cucumber-persona'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install cucumber-persona
+
 ## Examples
 
 ### Edward
@@ -87,9 +84,9 @@ This project was originally extracted from [Edward](https://github.com/starfight
 
 See: https://github.com/starfighterheavy/edward/tree/master/features/personas
 
-### BridgeCare Finance
+### BridgeCare
 
-[BridgeCare Finance](https://www.bridgecarefinance.com) uses Cucumber::Persona to create tests centered around common user personas that have their own quirks and history, rather than nameless data objects.
+[BridgeCare](https://www.getbridgecare.com) uses Cucumber::Persona to create tests centered around common user personas that have their own quirks and history, rather than nameless data objects.
 
 #### Are you using Cucumber::Persona?
 
